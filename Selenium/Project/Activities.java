@@ -194,12 +194,82 @@ public class Activities {
     }
 
     @Test
-    public void ApplyForLeave(){
+    public void ApplyForLeave() throws InterruptedException {
         //Click Apply leave Option
         WebElement applyleave_Lnk = driver.findElement(By.xpath("//span[contains(text(),'Apply Leave')]//ancestor::div[1]"));
         applyleave_Lnk.click();
         Reporter.log("Apply Leave Image Link is clicked");
-        //Need to be completed after Abhiram's reply
+        Thread.sleep(2000);
+        //Enter all mandatory fields
+        WebElement leavetype_Drp = driver.findElement(By.id("applyleave_txtLeaveType"));
+        WebElement leavetype_Opt = driver.findElement(By.xpath("//select[@id='applyleave_txtLeaveType']/option[2]"));
+        WebElement fromdate_Txt = driver.findElement(By.id("applyleave_txtFromDate"));
+        WebElement todate_Txt = driver.findElement(By.id("applyleave_txtToDate"));
+        leavetype_Drp.click();
+        Reporter.log("Leave Type Dropdown is clicked");
+        leavetype_Opt.click();
+        Reporter.log("Leave type is selected");
+        fromdate_Txt.click();
+        Reporter.log("From Date field is clicked");
+        WebElement dobmonth_Drp = driver.findElement(By.className("ui-datepicker-month"));
+        dobmonth_Drp.click();
+        driver.findElement(By.xpath("(.//*[@class='ui-datepicker-month']//option)[2]")).click();
+        WebElement dobyear_Drp = driver.findElement(By.className("ui-datepicker-year"));
+        dobyear_Drp.click();
+        driver.findElement(By.xpath("//*[@class='ui-datepicker-year']//option[contains(text(),'2022')]")).click();
+        driver.findElement(By.xpath("//a[contains(text(),'18')]")).click();
+        Reporter.log("From Date is selected");
+        Thread.sleep(2000);
+        todate_Txt.click();
+        Reporter.log("To Date field is clicked");
+        WebElement dobmonth_Drp1 = driver.findElement(By.className("ui-datepicker-month"));
+        dobmonth_Drp1.click();
+        driver.findElement(By.xpath("(.//*[@class='ui-datepicker-month']//option)[2]")).click();
+        WebElement dobyear_Drp1 = driver.findElement(By.className("ui-datepicker-year"));
+        dobyear_Drp1.click();
+        driver.findElement(By.xpath("//*[@class='ui-datepicker-year']//option[contains(text(),'2022')]")).click();
+        driver.findElement(By.xpath("//a[contains(text(),'19')]")).click();
+        Reporter.log("To Date is selected");
+        //Apply for Leave
+        WebElement apply_Btn = driver.findElement(By.id("applyBtn"));
+        apply_Btn.click();
+        Reporter.log("Apply button is clicked");
+        Thread.sleep(2000);
+        //Click My Leaves
+        WebElement myleave_Lnk = driver.findElement(By.id("menu_leave_viewMyLeaveList"));
+        myleave_Lnk.click();
+        Reporter.log("My Leave Link is clicked");
+        /*WebElement searchfromdate_Txt = driver.findElement(By.id("calFromDate"));
+        WebElement searchtodate_Txt = driver.findElement(By.id("calToDate"));
+        searchfromdate_Txt.click();
+        Reporter.log("From Date field is clicked");
+        WebElement dobmonth_Drp2 = driver.findElement(By.className("ui-datepicker-month"));
+        dobmonth_Drp2.click();
+        driver.findElement(By.xpath("(.//*[@class='ui-datepicker-month']//option)[2]")).click();
+        WebElement dobyear_Drp2 = driver.findElement(By.className("ui-datepicker-year"));
+        dobyear_Drp2.click();
+        driver.findElement(By.xpath("//*[@class='ui-datepicker-year']//option[contains(text(),'2022')]")).click();
+        driver.findElement(By.xpath("//a[contains(text(),'18')]")).click();
+        Reporter.log("From Date is selected");
+        Thread.sleep(2000);
+        searchtodate_Txt.click();
+        Reporter.log("To Date field is clicked");
+        WebElement dobmonth_Drp3 = driver.findElement(By.className("ui-datepicker-month"));
+        dobmonth_Drp3.click();
+        driver.findElement(By.xpath("(.//*[@class='ui-datepicker-month']//option)[2]")).click();
+        WebElement dobyear_Drp3 = driver.findElement(By.className("ui-datepicker-year"));
+        dobyear_Drp3.click();
+        driver.findElement(By.xpath("//*[@class='ui-datepicker-year']//option[contains(text(),'2022')]")).click();
+        driver.findElement(By.xpath("//a[contains(text(),'19')]")).click();
+        Reporter.log("To Date is selected");
+        //Search for leave
+        WebElement search_Btn = driver.findElement(By.id("btnSearch"));
+        search_Btn.click();
+        Reporter.log("Search button is clicked");*/
+        //Verify status of leave
+        WebElement status_Val = driver.findElement(By.xpath("//*[@id='resultTable']/tbody/tr[2]/td[6]/a"));
+        Assert.assertEquals(status_Val.getText(), "Pending Approval(1.00)");
+        Reporter.log("Status of leave is verified");
     }
 
     @Test
